@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Scheduling Simulator</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="process-page">
+
+<!-- Navigation -->
+<nav class="top-nav">
+    <a href="../index.html" class="nav-link">← Back to Home</a>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero">
+    <h2>Process Scheduling Algorithms</h2>
+    <p>Simulate CPU scheduling and visualize execution order</p>
+</div>
+
+<!-- Information Card -->
+<div class="info-card process-info">
+    <div class="info-header">
+        <span class="info-icon">💡</span>
+        <h3>About Process Scheduling</h3>
+    </div>
+    <p>Process scheduling algorithms determine the order in which processes are executed by the CPU to optimize system performance and resource utilization.</p>
+    <div class="algo-grid">
+        <div class="algo-item">
+            <strong>FCFS:</strong> First Come First Serve
+        </div>
+        <div class="algo-item">
+            <strong>SJF:</strong> Shortest Job First
+        </div>
+        <div class="algo-item">
+            <strong>SRTF:</strong> Shortest Remaining Time First
+        </div>
+        <div class="algo-item">
+            <strong>Round Robin:</strong> Time Quantum Based
+        </div>
+        <div class="algo-item">
+            <strong>Priority:</strong> Based on Priority Values
+        </div>
+    </div>
+</div>
+
+<!-- Input Form -->
+<div class="form-card">
+    <h3 class="section-title">
+        <span class="title-icon">⚙️</span>
+        Process Scheduling Configuration
+    </h3>
+    
+    <div class="form-section">
+        <div class="input-group">
+            <label for="algo">
+                <span class="label-icon">🔧</span>
+                Scheduling Algorithm
+            </label>
+            <select id="algo" class="input-field">
+                <option value="fcfs">FCFS - First Come First Serve</option>
+                <option value="sjf">SJF - Shortest Job First</option>
+                <option value="srtf">SRTF - Shortest Remaining Time First</option>
+                <option value="rr">Round Robin - Time Quantum Based</option>
+                <option value="pnp">Priority (Non-Preemptive)</option>
+                <option value="pp">Priority (Preemptive)</option>
+            </select>
+        </div>
+
+        <div class="input-row">
+            <div class="input-group">
+                <label for="arrival">
+                    <span class="label-icon">⏰</span>
+                    Arrival Time
+                </label>
+                <input id="arrival" type="text" class="input-field" placeholder="0,1,2,3" value="">
+                <small class="input-hint">Comma-separated arrival times for each process</small>
+            </div>
+
+            <div class="input-group">
+                <label for="burst">
+                    <span class="label-icon">⚡</span>
+                    Burst Time
+                </label>
+                <input id="burst" type="text" class="input-field" placeholder="5,3,8,6" value="">
+                <small class="input-hint">Comma-separated CPU burst times</small>
+            </div>
+        </div>
+
+        <div class="input-row">
+            <div class="input-group">
+                <label for="priority">
+                    <span class="label-icon">🎯</span>
+                    Priority
+                </label>
+                <input id="priority" type="text" class="input-field" placeholder="2,1,4,3" value="">
+                <small class="input-hint">Lower number = Higher priority (for Priority algorithms)</small>
+            </div>
+
+            <div class="input-group">
+                <label for="quantum">
+                    <span class="label-icon">🔄</span>
+                    Time Quantum
+                </label>
+                <input id="quantum" type="number" class="input-field" placeholder="2" min="1" value="">
+                <small class="input-hint">Time slice for Round Robin algorithm</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <button onclick="simulate()" class="btn btn-primary">
+            <span class="btn-icon">▶</span>
+            Run Simulation
+        </button>
+        <button onclick="clearResults()" class="btn btn-secondary">
+            <span class="btn-icon">🗑️</span>
+            Clear Results
+        </button>
+        <button onclick="loadExample()" class="btn btn-tertiary">
+            <span class="btn-icon">📝</span>
+            Load Example
+        </button>
+    </div>
+</div>
+
+<!-- Results Section -->
+<div id="results-section">
+    <div id="gantt"></div>
+    <div id="table"></div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer">
+    <p>OS Algorithm Simulator | Process Scheduling Module</p>
+</footer>
+
+<script src="../js/process.js"></script>
+<script>
+function clearResults() {
+    document.getElementById('gantt').innerHTML = '';
+    document.getElementById('table').innerHTML = '';
+}
+
+function loadExample() {
+    document.getElementById('arrival').value = '0,1,2,3';
+    document.getElementById('burst').value = '5,3,8,6';
+    document.getElementById('priority').value = '2,1,4,3';
+    document.getElementById('quantum').value = '2';
+}
+</script>
+
+</body>
+</html>

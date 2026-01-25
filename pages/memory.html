@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="memory-page">
+
+<!-- Navigation -->
+<nav class="top-nav">
+    <a href="../index.html" class="nav-link">← Back to Home</a>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero">
+    <h2>Memory Management Algorithms</h2>
+    <p>Simulate memory allocation and page replacement techniques</p>
+</div>
+
+<!-- Category Selection Card -->
+<div class="category-card">
+    <div class="category-selector">
+        <button class="category-btn active" onclick="switchCategory('allocation')" id="btn-allocation">
+            <span class="category-icon">🧩</span>
+            <span class="category-label">Memory Allocation</span>
+        </button>
+        <button class="category-btn" onclick="switchCategory('paging')" id="btn-paging">
+            <span class="category-icon">📄</span>
+            <span class="category-label">Page Replacement</span>
+        </button>
+    </div>
+</div>
+
+<!-- Legacy Category Selector (Hidden but functional for compatibility) -->
+<div style="display: none;">
+    <select id="category" onchange="toggleCategory()">
+        <option value="allocation">Memory Allocation</option>
+        <option value="paging">Page Replacement</option>
+    </select>
+</div>
+
+<!-- Input Form -->
+<div class="form-card">
+    <!-- MEMORY ALLOCATION SECTION -->
+    <div id="allocation" class="algorithm-section">
+        <h3 class="section-title">
+            <span class="title-icon">🧩</span>
+            Memory Allocation Configuration
+        </h3>
+        
+        <div class="form-section">
+            <div class="input-group">
+                <label for="allocAlgo">
+                    <span class="label-icon">⚙️</span>
+                    Allocation Algorithm
+                </label>
+                <select id="allocAlgo" class="input-field">
+                    <option value="ff">First Fit - Allocate first sufficient block</option>
+                    <option value="bf">Best Fit - Allocate smallest sufficient block</option>
+                    <option value="wf">Worst Fit - Allocate largest available block</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="blocks">
+                    <span class="label-icon">📦</span>
+                    Memory Blocks (in KB)
+                </label>
+                <input id="blocks" type="text" class="input-field" placeholder="100,500,200,300,600" value="">
+                <small class="input-hint">Comma-separated block sizes available in memory</small>
+            </div>
+
+            <div class="input-group">
+                <label for="processes">
+                    <span class="label-icon">💼</span>
+                    Process Sizes (in KB)
+                </label>
+                <input id="processes" type="text" class="input-field" placeholder="212,417,112,426" value="">
+                <small class="input-hint">Comma-separated sizes of processes to allocate</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE REPLACEMENT SECTION -->
+    <div id="paging" class="algorithm-section" style="display:none">
+        <h3 class="section-title">
+            <span class="title-icon">📄</span>
+            Page Replacement Configuration
+        </h3>
+        
+        <div class="form-section">
+            <div class="input-group">
+                <label for="pageAlgo">
+                    <span class="label-icon">⚙️</span>
+                    Page Replacement Algorithm
+                </label>
+                <select id="pageAlgo" class="input-field">
+                    <option value="fifo">FIFO - First In First Out</option>
+                    <option value="lru">LRU - Least Recently Used</option>
+                    <option value="opt">Optimal - Replace page not used for longest time</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="pages">
+                    <span class="label-icon">📑</span>
+                    Page Reference String
+                </label>
+                <input id="pages" type="text" class="input-field" placeholder="7,0,1,2,0,3,0,4,2,3" value="">
+                <small class="input-hint">Comma-separated page numbers in order of reference</small>
+            </div>
+
+            <div class="input-group">
+                <label for="frames">
+                    <span class="label-icon">🖼️</span>
+                    Number of Frames
+                </label>
+                <input id="frames" type="number" class="input-field" placeholder="3" min="1" max="10">
+                <small class="input-hint">Number of page frames available in memory</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <button onclick="simulateMemory()" class="btn btn-primary">
+            <span class="btn-icon">▶</span>
+            Run Simulation
+        </button>
+        <button onclick="clearResults()" class="btn btn-secondary">
+            <span class="btn-icon">🗑️</span>
+            Clear Results
+        </button>
+        <button onclick="loadExample()" class="btn btn-tertiary">
+            <span class="btn-icon">📝</span>
+            Load Example
+        </button>
+    </div>
+</div>
+
+<!-- Results Section -->
+<div id="results-section">
+    <div id="output"></div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer">
+    <p>OS Algorithm Simulator | Memory Management Module</p>
+</footer>
+
+<script src="../js/memory.js"></script>
+<script>
+function switchCategory(category) {
+    // Update hidden select for compatibility with existing JS
+    document.getElementById('category').value = category;
+    
+    // Hide all sections
+    document.getElementById('allocation').style.display = 'none';
+    document.getElementById('paging').style.display = 'none';
+    
+    // Remove active class from all buttons
+    document.getElementById('btn-allocation').classList.remove('active');
+    document.getElementById('btn-paging').classList.remove('active');
+    
+    // Show selected section and activate button
+    document.getElementById(category).style.display = 'block';
+    document.getElementById('btn-' + category).classList.add('active');
+    
+    // Clear results when switching
+    clearResults();
+}
+
+function clearResults() {
+    document.getElementById('output').innerHTML = '';
+}
+
+function loadExample() {
+    const activeCategory = document.getElementById('allocation').style.display !== 'none' ? 'allocation' : 'paging';
+    
+    if (activeCategory === 'allocation') {
+        document.getElementById('blocks').value = '100,500,200,300,600';
+        document.getElementById('processes').value = '212,417,112,426';
+    } else {
+        document.getElementById('pages').value = '7,0,1,2,0,3,0,4,2,3,0,3,2';
+        document.getElementById('frames').value = '3';
+    }
+}
+
+// Legacy function for compatibility with existing memory.js
+function toggleCategory() {
+    const category = document.getElementById('category').value;
+    switchCategory(category);
+}
+</script>
+
+</body>
+</html>

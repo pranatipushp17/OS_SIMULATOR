@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deadlock – Banker's Algorithm</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="deadlock-page">
+
+<!-- Navigation -->
+<nav class="top-nav">
+    <a href="../index.html" class="nav-link">← Back to Home</a>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero">
+    <h2>Deadlock Avoidance</h2>
+    <p>Banker's Algorithm for Safe State Detection</p>
+</div>
+
+<!-- Information Card -->
+<div class="info-card">
+    <div class="info-header">
+        <span class="info-icon">ℹ️</span>
+        <h3>How to Use</h3>
+    </div>
+    <p>Enter matrix values row-wise with spaces between values and commas between rows.</p>
+    <div class="example-box">
+        <strong>Example:</strong> For 3 processes and 3 resources<br>
+        <code>0 1 0, 2 0 0, 3 0 2</code> means:<br>
+        P0: [0, 1, 0] | P1: [2, 0, 0] | P2: [3, 0, 2]
+    </div>
+</div>
+
+<!-- Input Form -->
+<div class="form-card">
+    <h3 class="section-title">Resource Allocation Input</h3>
+    
+    <div class="form-section">
+        <div class="input-group">
+            <label for="allocation">
+                <span class="label-icon">📊</span>
+                Allocation Matrix
+            </label>
+            <textarea id="allocation" class="input-field textarea-field" rows="3" placeholder="Enter allocated resources for each process
+Example: 0 1 0, 2 0 0, 3 0 2"></textarea>
+            <small class="input-hint">Current resources allocated to each process</small>
+        </div>
+
+        <div class="input-group">
+            <label for="max">
+                <span class="label-icon">📈</span>
+                Maximum Need Matrix
+            </label>
+            <textarea id="max" class="input-field textarea-field" rows="3" placeholder="Enter maximum resource need for each process
+Example: 7 5 3, 3 2 2, 9 0 2"></textarea>
+            <small class="input-hint">Maximum resources each process may need</small>
+        </div>
+
+        <div class="input-group">
+            <label for="available">
+                <span class="label-icon">💎</span>
+                Available Resources
+            </label>
+            <input id="available" type="text" class="input-field" placeholder="Example: 3 3 2">
+            <small class="input-hint">Currently available resources in the system</small>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <button onclick="simulateBanker()" class="btn btn-primary">
+            <span class="btn-icon">🔍</span>
+            Check Safe State
+        </button>
+        <button onclick="clearResults()" class="btn btn-secondary">
+            <span class="btn-icon">🗑️</span>
+            Clear Results
+        </button>
+        <button onclick="loadExample()" class="btn btn-tertiary">
+            <span class="btn-icon">📝</span>
+            Load Example
+        </button>
+    </div>
+</div>
+
+<!-- Results Section -->
+<div id="results-section">
+    <div id="output"></div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer">
+    <p>OS Algorithm Simulator | Deadlock Avoidance Module</p>
+</footer>
+
+<script src="../js/deadlock.js"></script>
+<script>
+function clearResults() {
+    document.getElementById('output').innerHTML = '';
+}
+
+function loadExample() {
+    document.getElementById('allocation').value = '0 1 0, 2 0 0, 3 0 2';
+    document.getElementById('max').value = '7 5 3, 3 2 2, 9 0 2';
+    document.getElementById('available').value = '3 3 2';
+}
+</script>
+
+</body>
+</html>

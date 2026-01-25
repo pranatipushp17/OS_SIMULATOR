@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disk Scheduling</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="disk-page">
+
+<!-- Navigation -->
+<nav class="top-nav">
+    <a href="../index.html" class="nav-link">← Back to Home</a>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero">
+    <h2>Disk Scheduling Algorithms</h2>
+    <p>Visualize disk head movement and optimize seek time</p>
+</div>
+
+<!-- Information Card -->
+<div class="info-card disk-info">
+    <div class="info-header">
+        <span class="info-icon">💡</span>
+        <h3>About Disk Scheduling</h3>
+    </div>
+    <p>Disk scheduling algorithms determine the order in which disk I/O requests are serviced to minimize seek time and improve performance.</p>
+    <div class="algo-grid">
+        <div class="algo-item">
+            <strong>FCFS:</strong> First Come First Serve
+        </div>
+        <div class="algo-item">
+            <strong>SSTF:</strong> Shortest Seek Time First
+        </div>
+        <div class="algo-item">
+            <strong>SCAN:</strong> Elevator Algorithm
+        </div>
+        <div class="algo-item">
+            <strong>C-SCAN:</strong> Circular SCAN
+        </div>
+    </div>
+</div>
+
+<!-- Input Form -->
+<div class="form-card">
+    <h3 class="section-title">
+        <span class="title-icon">💿</span>
+        Disk Scheduling Configuration
+    </h3>
+    
+    <div class="form-section">
+        <div class="input-group">
+            <label for="diskAlgo">
+                <span class="label-icon">⚙️</span>
+                Scheduling Algorithm
+            </label>
+            <select id="diskAlgo" class="input-field">
+                <option value="fcfs">FCFS - First Come First Serve</option>
+                <option value="sstf">SSTF - Shortest Seek Time First</option>
+                <option value="scan">SCAN - Elevator Algorithm</option>
+                <option value="cscan">C-SCAN - Circular SCAN</option>
+            </select>
+        </div>
+
+        <div class="input-row">
+            <div class="input-group">
+                <label for="requests">
+                    <span class="label-icon">📋</span>
+                    Disk Requests (Tracks)
+                </label>
+                <input id="requests" type="text" class="input-field" placeholder="Example: 98, 183, 37, 122, 14, 124, 65, 67">
+                <small class="input-hint">Comma-separated track numbers to be accessed</small>
+            </div>
+
+            <div class="input-group">
+                <label for="head">
+                    <span class="label-icon">📍</span>
+                    Initial Head Position
+                </label>
+                <input id="head" type="number" class="input-field" placeholder="Example: 53" min="0">
+                <small class="input-hint">Starting position of the disk head</small>
+            </div>
+        </div>
+
+        <div class="input-row">
+            <div class="input-group">
+                <label for="diskSize">
+                    <span class="label-icon">💾</span>
+                    Disk Size (Cylinders)
+                </label>
+                <input id="diskSize" type="number" class="input-field" placeholder="Example: 200" min="1">
+                <small class="input-hint">Total number of cylinders on the disk</small>
+            </div>
+
+            <div class="input-group">
+                <label for="direction">
+                    <span class="label-icon">↔️</span>
+                    Initial Direction
+                </label>
+                <select id="direction" class="input-field">
+                    <option value="right">Right (Towards Higher Tracks)</option>
+                    <option value="left">Left (Towards Lower Tracks)</option>
+                </select>
+                <small class="input-hint">For SCAN and C-SCAN algorithms</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <button onclick="simulateDisk()" class="btn btn-primary">
+            <span class="btn-icon">▶</span>
+            Run Simulation
+        </button>
+        <button onclick="clearResults()" class="btn btn-secondary">
+            <span class="btn-icon">🗑️</span>
+            Clear Results
+        </button>
+        <button onclick="loadExample()" class="btn btn-tertiary">
+            <span class="btn-icon">📝</span>
+            Load Example
+        </button>
+    </div>
+</div>
+
+<!-- Results Section -->
+<div id="results-section">
+    <div id="output"></div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer">
+    <p>OS Algorithm Simulator | Disk Scheduling Module</p>
+</footer>
+
+<script src="../js/disk.js"></script>
+<script>
+function clearResults() {
+    document.getElementById('output').innerHTML = '';
+}
+
+function loadExample() {
+    document.getElementById('requests').value = '98, 183, 37, 122, 14, 124, 65, 67';
+    document.getElementById('head').value = '53';
+    document.getElementById('diskSize').value = '200';
+    document.getElementById('direction').value = 'right';
+}
+</script>
+
+</body>
+</html>
