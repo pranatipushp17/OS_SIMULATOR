@@ -4,7 +4,7 @@ A comprehensive web-based visualization tool for Operating System algorithms. Th
 
 ## Live Demo
 
-Add your deployed link here
+(https://pranatipushp17.github.io/OS_SIMULATOR/)
 
 ## GitHub Repository
 
